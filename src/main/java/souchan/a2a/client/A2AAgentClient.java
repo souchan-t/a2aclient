@@ -1,24 +1,18 @@
 package souchan.a2a.client;
 
 import souchan.a2a.models.*;
-import souchan.a2a.models.response.*;
 
-import java.util.function.Consumer;
+import java.util.concurrent.CompletableFuture;
 
 public interface A2AAgentClient {
 
-    AgentAuthenticatedExtendedCardResponse authenticatedExtendedCard();
-    MessageSendResponse messageSend(MessageSendParams messageSendParams);
-    void messageStream(MessageSendParams messageSendParams, Consumer<MessageStreamResponse> consumer);
-    TasksGetResponse tasksGet(TaskQueryParams taskQueryParams);
-    TasksCancelResponse taskCancel(TaskIdParams taskIdParams);
-    TasksPushNotificationConfigSetResponse pushNotificationSet(TaskPushNotificationConfig taskPushNotificationConfig);
-    TasksPushNotificationConfigGetResponse pushNotificationGet(TaskIdParams taskIdParams);
-    void tasksResubscribe(TaskIdParams taskIdParams, Consumer<TasksResubscribeResponse> consumer);
-
-
-
-
-
+    AgentCard authenticatedExtendedCard();
+    SendMessageResponseResult sendMessage(MessageSendParams messageSendParams);
+    CompletableFuture<Void> sendMessageStreaming(MessageSendParams messageSendParams, A2AEventListener eventListener);
+    Task getTask(TaskQueryParams taskQueryParams);
+    Task cancelTask(TaskIdParams taskIdParams);
+    TaskPushNotificationConfig setPushNotification(TaskPushNotificationConfig taskPushNotificationConfig);
+    TaskPushNotificationConfig getPushNotification(TaskIdParams taskIdParams);
+    CompletableFuture<Void> resubscribeTasks(TaskIdParams taskIdParams, A2AEventListener eventListener);
 
 }

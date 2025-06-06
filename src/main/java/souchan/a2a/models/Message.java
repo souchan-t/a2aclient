@@ -36,7 +36,7 @@ public record Message(
 
         /** Event type */
         String kind
-) implements MessageSendResponseResult, MessageStreamResponseResult {
+) implements SendMessageResponseResult, MessageStreamResponseResult {
     public Message {
         if (!"message".equals(kind)) {
             throw new IllegalArgumentException("kind must be 'message'");

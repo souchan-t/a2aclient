@@ -4,9 +4,9 @@ import souchan.a2a.models.Task;
 
 import java.util.Optional;
 
-public record TasksCancelResponse(
+public record GetTasksResponse(
     String jsonrpc,
     String id,
     Optional<Task> result,
-    Optional<JSONRPCError> error) {
+    Optional<JSONRPCError> error) implements JSONRPCResponse{
 }

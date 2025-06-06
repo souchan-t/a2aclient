@@ -28,7 +28,7 @@ public record Task(
 
         /** Event type */
         String kind
-) implements MessageSendResponseResult, MessageStreamResponseResult {
+) implements SendMessageResponseResult, MessageStreamResponseResult {
     public Task {
         if (!"task".equals(kind)) {
             throw new IllegalArgumentException("kind must be 'task'");

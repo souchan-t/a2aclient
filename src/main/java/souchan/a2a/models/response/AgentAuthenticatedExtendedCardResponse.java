@@ -8,5 +8,5 @@ public record AgentAuthenticatedExtendedCardResponse(
     String jsonrpc,
     String id,
     Optional<AgentCard> result,
-    Optional<JSONRPCError> error) {
+    Optional<JSONRPCError> error) implements JSONRPCResponse{
 }

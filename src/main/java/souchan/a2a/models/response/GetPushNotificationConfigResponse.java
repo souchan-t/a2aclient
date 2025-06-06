@@ -4,9 +4,9 @@ import souchan.a2a.models.TaskPushNotificationConfig;
 
 import java.util.Optional;
 
-public record TasksPushNotificationConfigSetResponse(
+public record GetPushNotificationConfigResponse(
     String jsonrpc,
     String id,
     Optional<TaskPushNotificationConfig> result,
-    Optional<JSONRPCError> error){
+    Optional<JSONRPCError> error) implements JSONRPCResponse{
 }
