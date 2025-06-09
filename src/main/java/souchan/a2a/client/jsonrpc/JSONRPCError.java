@@ -1,4 +1,4 @@
-package souchan.a2a.models.response;
+package souchan.a2a.client.jsonrpc;
 
 import java.util.Optional;
 

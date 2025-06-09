@@ -1,4 +1,4 @@
-package souchan.a2a.models.response;
+package souchan.a2a.client.jsonrpc;
 
 import souchan.a2a.models.SendMessageResponseResult;
 
@@ -8,5 +8,5 @@ public record SendMessageResponse(
         String jsonrpc,
         String id,
         Optional<SendMessageResponseResult> result,
-        Optional<JSONRPCError> error ) implements JSONRPCResponse {
+        Optional<JSONRPCError> error) implements JSONRPCResponse<SendMessageResponseResult> {
 }

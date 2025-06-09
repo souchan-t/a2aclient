@@ -10,9 +10,10 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 
-public class A2AAgentCardClientImpl implements A2AAgentCardClient{
+public class A2AAgentCardClientImpl implements A2AAgentCardClient {
     protected final HttpClient httpClient;
     protected final ObjectMapper objectMapper;
+
     public A2AAgentCardClientImpl(HttpClient httpClient) {
         this.httpClient = httpClient;
         this.objectMapper = new ObjectMapper();
@@ -23,7 +24,7 @@ public class A2AAgentCardClientImpl implements A2AAgentCardClient{
     public AgentCard getAgentCard(String serverDomain) {
         final var httpRequest = HttpRequest.
                 newBuilder(URI.create(serverDomain + ".well-known/agent.json"))
-                .header("Accept","application/json")
+                .header("Accept", "application/json")
                 .GET()
                 .build();
 
@@ -32,11 +33,10 @@ public class A2AAgentCardClientImpl implements A2AAgentCardClient{
             final var rawResponse = httpClient.send(httpRequest, HttpResponse.BodyHandlers.ofString());
 
             if (rawResponse.statusCode() < 200 | rawResponse.statusCode() >= 300) {
-                throw new A2AClientException("スターツコード:" + rawResponse.statusCode());
+                throw new A2AClientException("HTTPステータスコード:" + rawResponse.statusCode());
             } else {
                 return objectMapper.readValue(rawResponse.body(), AgentCard.class);
             }
-
 
 
         } catch (IOException | InterruptedException e) {

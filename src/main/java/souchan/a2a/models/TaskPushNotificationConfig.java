@@ -9,4 +9,5 @@ public record TaskPushNotificationConfig(
 
         /** Push notification configuration. */
         PushNotificationConfig pushNotificationConfig
-) implements RequestParams {}
+) implements RequestParams {
+}

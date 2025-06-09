@@ -7,15 +7,16 @@ import java.util.Optional;
  * Defines optional capabilities supported by an agent.
  */
 public record AgentCapabilities(
-        /** true if the agent supports SSE. */
+        /* true if the agent supports SSE. */
         Optional<Boolean> streaming,
 
-        /** true if the agent can notify updates to client. */
+        /* true if the agent can notify updates to client. */
         Optional<Boolean> pushNotifications,
 
-        /** true if the agent exposes status change history for tasks. */
+        /* true if the agent exposes status change history for tasks. */
         Optional<Boolean> stateTransitionHistory,
 
-        /** extensions supported by this agent. */
+        /* extensions supported by this agent. */
         Optional<List<AgentExtension>> extensions
-) {}
+) {
+}

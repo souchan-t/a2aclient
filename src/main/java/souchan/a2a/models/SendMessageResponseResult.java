@@ -12,6 +12,5 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
         @JsonSubTypes.Type(value = Task.class, name = "task"),
         @JsonSubTypes.Type(value = Message.class, name = "message")})
 public sealed interface SendMessageResponseResult permits
-    Task, Message
-{
+        Task, Message {
 }

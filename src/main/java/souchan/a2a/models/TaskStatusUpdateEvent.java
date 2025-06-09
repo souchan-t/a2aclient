@@ -24,4 +24,5 @@ public record TaskStatusUpdateEvent(
 
         /** Extension metadata. */
         Optional<Map<String, Object>> metadata
-) implements MessageStreamResponseResult {}
+) implements MessageStreamResponseResult {
+}

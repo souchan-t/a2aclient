@@ -27,4 +27,5 @@ public record TaskArtifactUpdateEvent(
 
         /** Extension metadata. */
         Optional<Map<String, Object>> metadata
-) implements MessageStreamResponseResult {}
+) implements MessageStreamResponseResult {
+}

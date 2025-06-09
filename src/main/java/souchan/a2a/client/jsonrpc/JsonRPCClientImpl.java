@@ -1,12 +1,12 @@
-package souchan.a2a.client;
+package souchan.a2a.client.jsonrpc;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
+import souchan.a2a.client.A2AEventListener;
+import souchan.a2a.client.APIKeyCredential;
+import souchan.a2a.client.Credential;
 import souchan.a2a.models.SecurityScheme;
-import souchan.a2a.models.response.JSONRPCError;
-import souchan.a2a.models.response.JSONRPCRequest;
-import souchan.a2a.models.response.JSONRPCResponse;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -21,17 +21,21 @@ public class JsonRPCClientImpl implements JsonRPCClient {
     final HttpClient httpClient;
     final ObjectMapper objectMapper;
 
-    JsonRPCClientImpl() {
+    public JsonRPCClientImpl() {
         this(HttpClient.newHttpClient());
     }
 
-    JsonRPCClientImpl(HttpClient httpClient) {
+    public JsonRPCClientImpl(HttpClient httpClient) {
         this.httpClient = httpClient;
         this.objectMapper = new ObjectMapper();
         objectMapper.registerModule(new Jdk8Module());
     }
 
-    public <T extends JSONRPCResponse> Object request(String url, JSONRPCRequest request, Class<T> responseClass, SecurityScheme securityScheme, Credential credential) throws A2AClientException {
+    public <REQ, RES extends JSONRPCResponse<T>, T> T request(String url,
+                                                              JSONRPCRequest<REQ> request,
+                                                              Class<RES> responseClass,
+                                                              SecurityScheme securityScheme,
+                                                              Credential credential) throws JSONRPCException {
         try {
             //リクエストボデイ
             final var requestBody = objectMapper.writeValueAsString(request);
@@ -70,24 +74,29 @@ public class JsonRPCClientImpl implements JsonRPCClient {
             final var httpResponse = httpClient.send(httpRequest, HttpResponse.BodyHandlers.ofString());
 
             if (httpResponse.statusCode() < 200 || httpResponse.statusCode() >= 300) {
-                throw new A2AClientException("A2A クライアント Httpステータスコード:" + httpResponse.statusCode());
+                throw new RuntimeException("A2A クライアント Httpステータスコード:" + httpResponse.statusCode());
             } else {
-                final T response = objectMapper.readValue(httpResponse.body(), responseClass);
-                return response.result().orElseThrow(() -> new A2AClientException(response.error().orElseThrow().message()));
+                final RES response = objectMapper.readValue(httpResponse.body(), responseClass);
+                return response.result().orElseThrow(() -> new JSONRPCException(response.error().orElseThrow()));
             }
 
         } catch (IOException | InterruptedException e) {
-            throw new A2AClientException(e);
+            throw new RuntimeException(e);
         }
     }
 
-    public <T extends JSONRPCResponse> CompletableFuture<Void> requestSse(String url, JSONRPCRequest request, Class<T> responseClass, SecurityScheme securityScheme, Credential credential, A2AEventListener eventListener) {
+    public <REQ, RES extends JSONRPCResponse<T>, T> CompletableFuture<Void> requestSse(String url,
+                                                                                       JSONRPCRequest<REQ> request,
+                                                                                       Class<RES> responseClass,
+                                                                                       A2AEventListener eventListener,
+                                                                                       SecurityScheme securityScheme,
+                                                                                       Credential credential) {
         //リクエストボデイ
         final String requestBody;
         try {
             requestBody = objectMapper.writeValueAsString(request);
         } catch (JsonProcessingException e) {
-            throw new A2AClientException(e);
+            throw new RuntimeException(e);
         }
 
         //リクエスト
@@ -136,12 +145,12 @@ public class JsonRPCClientImpl implements JsonRPCClient {
                                     final var dataText = eventText.substring(5).trim();
                                     final var nodeTree = objectMapper.readTree(dataText);
                                     if (nodeTree.has("result")) {
-                                        final T result = objectMapper.readValue(dataText, responseClass);
+                                        final RES result = objectMapper.readValue(dataText, responseClass);
                                         eventListener.onEvent(result.result().orElseThrow());
 
                                     } else {
                                         final var jsonRpcError = objectMapper.readValue(dataText, JSONRPCError.class);
-                                        eventListener.onError(new A2AClientException(jsonRpcError.message()));
+                                        eventListener.onError(new JSONRPCException(jsonRpcError));
                                     }
 
                                 } else {

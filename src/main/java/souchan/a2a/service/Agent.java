@@ -8,8 +8,10 @@ import java.util.Optional;
 
 public interface Agent {
     AgentCard getAgentCard();
+
     //サーバとのセッションID.
     Optional<String> getId();
+
     SendMessageResponseResult sendMessage(Message message);
-    
+
 }

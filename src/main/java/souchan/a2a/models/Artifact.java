@@ -8,21 +8,22 @@ import java.util.Optional;
  * Represents an artifact generated for a task.
  */
 public record Artifact(
-        /** Unique identifier for the artifact. */
+        /* Unique identifier for the artifact. */
         String artifactId,
 
-        /** Optional name for the artifact. */
+        /* Optional name for the artifact. */
         Optional<String> name,
 
-        /** Optional description for the artifact. */
+        /* Optional description for the artifact. */
         Optional<String> description,
 
-        /** Artifact parts. */
+        /* Artifact parts. */
         List<Part> parts,
 
-        /** Extension metadata. */
+        /* Extension metadata. */
         Optional<Map<String, Object>> metadata,
 
-        /** The URIs of extensions that are present or contributed to this Artifact. */
+        /* The URIs of extensions that are present or contributed to this Artifact. */
         Optional<List<String>> extensions
-) {}
+) {
+}

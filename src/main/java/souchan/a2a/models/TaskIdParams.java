@@ -6,5 +6,5 @@ import java.util.Optional;
 public record TaskIdParams(
         String id,
         Optional<Map<String, Object>> metadata
-) implements RequestParams{
+) implements RequestParams {
 }

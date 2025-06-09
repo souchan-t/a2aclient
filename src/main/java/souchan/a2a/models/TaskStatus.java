@@ -17,4 +17,5 @@ public record TaskStatus(
          * @example "2023-10-27T10:00:00Z"
          */
         Optional<String> timestamp
-) {}
+) {
+}

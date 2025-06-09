@@ -7,15 +7,16 @@ import java.util.Optional;
  * Configuration for the send message request.
  */
 public record MessageSendConfiguration(
-        /** Accepted output modalities by the client. */
+        /* Accepted output modalities by the client. */
         List<String> acceptedOutputModes,
 
-        /** Number of recent messages to be retrieved. */
+        /* Number of recent messages to be retrieved. */
         Optional<Integer> historyLength,
 
-        /** Where the server should send notifications when disconnected. */
+        /* Where the server should send notifications when disconnected. */
         Optional<PushNotificationConfig> pushNotificationConfig,
 
-        /** If the server should treat the client as a blocking request. */
+        /* If the server should treat the client as a blocking request. */
         Optional<Boolean> blocking
-) {}
+) {
+}

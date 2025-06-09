@@ -3,7 +3,7 @@ plugins {
 }
 
 group = 'souchan.t'
-version = '1.0-SNAPSHOT'
+version = '0.01SNAPSHOT'
 
 repositories {
     mavenCentral()

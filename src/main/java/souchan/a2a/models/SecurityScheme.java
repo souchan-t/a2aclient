@@ -15,15 +15,14 @@ import java.util.Optional;
         @JsonSubTypes.Type(value = SecurityScheme.APIKeySecurityScheme.class, name = "apiKry"),
         @JsonSubTypes.Type(value = SecurityScheme.HTTPAuthSecurityScheme.class, name = "http"),
         @JsonSubTypes.Type(value = SecurityScheme.OAuth2SecurityScheme.class, name = "oauth2"),
-        @JsonSubTypes.Type(value = SecurityScheme.OpenIdConnectSecurityScheme.class, name="openIdConnect")
+        @JsonSubTypes.Type(value = SecurityScheme.OpenIdConnectSecurityScheme.class, name = "openIdConnect")
 })
 public sealed interface SecurityScheme
         permits
         SecurityScheme.APIKeySecurityScheme,
         SecurityScheme.HTTPAuthSecurityScheme,
         SecurityScheme.OAuth2SecurityScheme,
-        SecurityScheme.OpenIdConnectSecurityScheme
-{
+        SecurityScheme.OpenIdConnectSecurityScheme {
     record APIKeySecurityScheme(
             String type,
             Optional<String> description,
@@ -62,7 +61,8 @@ public sealed interface SecurityScheme
             String tokenUrl,
             Optional<String> refreshUrl,
             Map<String, String> scopes
-    ) {}
+    ) {
+    }
 }
 
 

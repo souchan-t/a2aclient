@@ -11,10 +11,9 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 @JsonSubTypes({
         @JsonSubTypes.Type(value = Task.class, name = "task"),
         @JsonSubTypes.Type(value = Message.class, name = "message"),
-        @JsonSubTypes.Type(value = TaskStatusUpdateEvent.class, name="status-update"),
-        @JsonSubTypes.Type(value = TaskArtifactUpdateEvent.class, name="artifact-update")
+        @JsonSubTypes.Type(value = TaskStatusUpdateEvent.class, name = "status-update"),
+        @JsonSubTypes.Type(value = TaskArtifactUpdateEvent.class, name = "artifact-update")
 })
 public sealed interface MessageStreamResponseResult permits
-    Task, Message, TaskStatusUpdateEvent, TaskArtifactUpdateEvent
-{
+        Task, Message, TaskStatusUpdateEvent, TaskArtifactUpdateEvent {
 }
