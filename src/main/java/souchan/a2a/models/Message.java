@@ -1,6 +1,7 @@
 package souchan.a2a.models;
 
 import com.fasterxml.jackson.annotation.JsonValue;
+import lombok.Builder;
 
 import java.util.List;
 import java.util.Map;
@@ -9,6 +10,7 @@ import java.util.Optional;
 /**
  * Represents a single message exchanged between user and agent.
  */
+@Builder
 public record Message(
         /* Message sender's role */
         Role role,

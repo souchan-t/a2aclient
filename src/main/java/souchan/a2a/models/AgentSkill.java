@@ -1,12 +1,15 @@
 package souchan.a2a.models;
 
 
+import lombok.Builder;
+
 import java.util.List;
 import java.util.Optional;
 
 /**
  * Represents a unit of capability that an agent can perform.
  */
+@Builder
 public record AgentSkill(
         /* Unique identifier for the agent's skill. */
         String id,

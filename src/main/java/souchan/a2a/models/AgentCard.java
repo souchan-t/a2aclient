@@ -1,5 +1,7 @@
 package souchan.a2a.models;
 
+import lombok.Builder;
+
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -11,6 +13,7 @@ import java.util.Optional;
  * - Default modalities/content types supported by the agent.
  * - Authentication requirements
  */
+@Builder
 public record AgentCard(
         /*
          * Human readable name of the agent.

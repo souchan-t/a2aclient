@@ -1,11 +1,14 @@
 package souchan.a2a.models;
 
+import lombok.Builder;
+
 import java.util.List;
 import java.util.Optional;
 
 /**
  * Configuration for the send message request.
  */
+@Builder
 public record MessageSendConfiguration(
         /* Accepted output modalities by the client. */
         List<String> acceptedOutputModes,

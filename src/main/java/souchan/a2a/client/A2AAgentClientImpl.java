@@ -19,7 +19,7 @@ public class A2AAgentClientImpl implements A2AAgentClient {
         this.securityScheme = securityScheme;
         this.credential = credential;
         this.httpClient = httpClient;
-        this.jsonRPCClient = new JsonRPCClientImpl(httpClient);
+        this.jsonRPCClient = new JsonRPCClientImpl(securityScheme, credential, httpClient);
         if (agentCard.supportsAuthenticatedExtendedCard().orElse(false)) {
             this.agentCard = authenticatedExtendedCard(agentCard);
         } else {
@@ -49,9 +49,7 @@ public class A2AAgentClientImpl implements A2AAgentClient {
         return this.jsonRPCClient.request(
                 this.agentCard.url(),
                 new AgentAuthenticatedExtendedCardRequest(generateId()),
-                AgentAuthenticatedExtendedCardResponse.class,
-                this.securityScheme,
-                this.credential);
+                AgentAuthenticatedExtendedCardResponse.class);
 
     }
 
@@ -61,10 +59,7 @@ public class A2AAgentClientImpl implements A2AAgentClient {
         return this.jsonRPCClient.request(
                 this.agentCard.url(),
                 new SendMessageRequest(messageSendParams, generateId()),
-                SendMessageResponse.class,
-                this.securityScheme,
-                this.credential
-        );
+                SendMessageResponse.class);
     }
 
     @Override
@@ -73,10 +68,7 @@ public class A2AAgentClientImpl implements A2AAgentClient {
                 this.agentCard.url(),
                 new StreamMessageRequest(messageSendParams, generateId()),
                 StreamMessageResponse.class,
-                eventListener,
-                this.securityScheme,
-                this.credential
-        );
+                eventListener);
     }
 
     @Override
@@ -84,9 +76,7 @@ public class A2AAgentClientImpl implements A2AAgentClient {
         return this.jsonRPCClient.request(
                 this.agentCard.url(),
                 new GetTasksRequest(taskQueryParams, generateId()),
-                GetTasksResponse.class,
-                this.securityScheme,
-                this.credential);
+                GetTasksResponse.class);
     }
 
     @Override
@@ -94,9 +84,7 @@ public class A2AAgentClientImpl implements A2AAgentClient {
         return this.jsonRPCClient.request(
                 this.agentCard.url(),
                 new CancelTasksRequest(taskIdParams, generateId()),
-                CancelTasksResponse.class,
-                this.securityScheme,
-                this.credential);
+                CancelTasksResponse.class);
     }
 
     @Override
@@ -104,9 +92,7 @@ public class A2AAgentClientImpl implements A2AAgentClient {
         return this.jsonRPCClient.request(
                 this.agentCard.url(),
                 new SetPushNotificationConfigRequest(taskPushNotificationConfig, generateId()),
-                SetPushNotificationConfigResponse.class,
-                this.securityScheme,
-                this.credential);
+                SetPushNotificationConfigResponse.class);
     }
 
     @Override
@@ -114,10 +100,7 @@ public class A2AAgentClientImpl implements A2AAgentClient {
         return this.jsonRPCClient.request(
                 this.agentCard.url(),
                 new GetPushNotificationConfigRequest(taskIdParams, generateId()),
-                GetPushNotificationConfigResponse.class,
-                this.securityScheme,
-                this.credential
-        );
+                GetPushNotificationConfigResponse.class);
     }
 
     @Override
@@ -126,10 +109,7 @@ public class A2AAgentClientImpl implements A2AAgentClient {
                 this.agentCard.url(),
                 new ResubscribeTasksRequest(taskIdParams, generateId()),
                 ResubscribeTasksResponse.class,
-                eventListener,
-                this.securityScheme,
-                this.credential
-        );
+                eventListener);
     }
 
     protected static String generateId() {

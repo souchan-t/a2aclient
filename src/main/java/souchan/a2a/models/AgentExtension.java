@@ -1,11 +1,14 @@
 package souchan.a2a.models;
 
+import lombok.Builder;
+
 import java.util.Map;
 import java.util.Optional;
 
 /**
  * A declaration of an extension supported by an Agent.
  */
+@Builder
 public record AgentExtension(
         /* The URI of the extension. */
         String uri,

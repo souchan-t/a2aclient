@@ -1,5 +1,7 @@
 package souchan.a2a.models;
 
+import lombok.Builder;
+
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -7,6 +9,7 @@ import java.util.Optional;
 /**
  * Represents an artifact generated for a task.
  */
+@Builder
 public record Artifact(
         /* Unique identifier for the artifact. */
         String artifactId,

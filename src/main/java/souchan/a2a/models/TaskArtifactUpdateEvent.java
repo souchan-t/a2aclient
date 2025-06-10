@@ -1,31 +1,34 @@
 package souchan.a2a.models;
 
+import lombok.Builder;
+
 import java.util.Map;
 import java.util.Optional;
 
 /**
  * Sent by server during sendStream or subscribe requests.
  */
+@Builder
 public record TaskArtifactUpdateEvent(
-        /** Task id */
+        /* Task id */
         String taskId,
 
-        /** The context the task is associated with */
+        /* The context the task is associated with */
         String contextId,
 
-        /** Event type */
+        /* Event type */
         String kind,
 
-        /** Generated artifact */
+        /* Generated artifact */
         Artifact artifact,
 
-        /** Indicates if this artifact appends to a previous one */
+        /* Indicates if this artifact appends to a previous one */
         Optional<Boolean> append,
 
-        /** Indicates if this is the last chunk of the artifact */
+        /* Indicates if this is the last chunk of the artifact */
         Optional<Boolean> lastChunk,
 
-        /** Extension metadata. */
+        /* Extension metadata. */
         Optional<Map<String, Object>> metadata
 ) implements MessageStreamResponseResult {
 }

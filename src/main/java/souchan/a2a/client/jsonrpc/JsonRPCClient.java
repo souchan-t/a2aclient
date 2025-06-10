@@ -9,15 +9,11 @@ import java.util.concurrent.CompletableFuture;
 public interface JsonRPCClient {
     <REQ, RES extends JSONRPCResponse<T>, T> T request(String url,
                                                        JSONRPCRequest<REQ> request,
-                                                       Class<RES> responseClass,
-                                                       SecurityScheme securityScheme,
-                                                       Credential credential) throws JSONRPCException;
+                                                       Class<RES> responseClass) throws JSONRPCException;
 
 
     <REQ, RES extends JSONRPCResponse<T>, T> CompletableFuture<Void> requestSse(String url,
                                                                                 JSONRPCRequest<REQ> request,
                                                                                 Class<RES> responseClass,
-                                                                                A2AEventListener eventListener,
-                                                                                SecurityScheme securityScheme,
-                                                                                Credential credential);
+                                                                                A2AEventListener eventListener);
 }

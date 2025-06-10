@@ -20,22 +20,24 @@ import java.util.concurrent.CompletableFuture;
 public class JsonRPCClientImpl implements JsonRPCClient {
     final HttpClient httpClient;
     final ObjectMapper objectMapper;
+    final SecurityScheme securityScheme;
+    final Credential credential;
 
-    public JsonRPCClientImpl() {
-        this(HttpClient.newHttpClient());
+    public JsonRPCClientImpl(SecurityScheme securityScheme, Credential credential) {
+        this(securityScheme, credential, HttpClient.newHttpClient());
     }
 
-    public JsonRPCClientImpl(HttpClient httpClient) {
+    public JsonRPCClientImpl(SecurityScheme securityScheme, Credential credential,HttpClient httpClient) {
         this.httpClient = httpClient;
+        this.securityScheme = securityScheme;
+        this.credential = credential;
         this.objectMapper = new ObjectMapper();
         objectMapper.registerModule(new Jdk8Module());
     }
 
     public <REQ, RES extends JSONRPCResponse<T>, T> T request(String url,
                                                               JSONRPCRequest<REQ> request,
-                                                              Class<RES> responseClass,
-                                                              SecurityScheme securityScheme,
-                                                              Credential credential) throws JSONRPCException {
+                                                              Class<RES> responseClass) throws JSONRPCException {
         try {
             //リクエストボデイ
             final var requestBody = objectMapper.writeValueAsString(request);
@@ -88,9 +90,7 @@ public class JsonRPCClientImpl implements JsonRPCClient {
     public <REQ, RES extends JSONRPCResponse<T>, T> CompletableFuture<Void> requestSse(String url,
                                                                                        JSONRPCRequest<REQ> request,
                                                                                        Class<RES> responseClass,
-                                                                                       A2AEventListener eventListener,
-                                                                                       SecurityScheme securityScheme,
-                                                                                       Credential credential) {
+                                                                                       A2AEventListener eventListener) {
         //リクエストボデイ
         final String requestBody;
         try {

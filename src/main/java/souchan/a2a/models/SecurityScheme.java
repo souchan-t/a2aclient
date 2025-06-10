@@ -2,6 +2,7 @@ package souchan.a2a.models;
 
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import lombok.Builder;
 
 import java.util.Map;
 import java.util.Optional;
@@ -23,6 +24,8 @@ public sealed interface SecurityScheme
         SecurityScheme.HTTPAuthSecurityScheme,
         SecurityScheme.OAuth2SecurityScheme,
         SecurityScheme.OpenIdConnectSecurityScheme {
+
+    @Builder
     record APIKeySecurityScheme(
             String type,
             Optional<String> description,
@@ -31,6 +34,7 @@ public sealed interface SecurityScheme
     ) implements SecurityScheme {
     }
 
+    @Builder
     record HTTPAuthSecurityScheme(
             String type,
             Optional<String> description,
@@ -40,6 +44,7 @@ public sealed interface SecurityScheme
     ) implements SecurityScheme {
     }
 
+    @Builder
     record OAuth2SecurityScheme(
             String type,
             Optional<String> description,
@@ -48,6 +53,7 @@ public sealed interface SecurityScheme
     ) implements SecurityScheme {
     }
 
+    @Builder
     record OpenIdConnectSecurityScheme(
             String type,
             Optional<String> description,
@@ -56,6 +62,7 @@ public sealed interface SecurityScheme
     ) implements SecurityScheme {
     }
 
+    @Builder
     record OAuthFlow(
             String authorizationUrl,
             String tokenUrl,

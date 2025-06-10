@@ -2,6 +2,7 @@ package souchan.a2a.models;
 
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import lombok.Builder;
 
 import java.util.Map;
 import java.util.Optional;
@@ -31,6 +32,7 @@ public sealed interface Part permits Part.TextPart, Part.FilePart, Part.DataPart
         }
     }
 
+    @Builder
     record FilePart(
             String kind,
             FileBase file,
@@ -43,6 +45,7 @@ public sealed interface Part permits Part.TextPart, Part.FilePart, Part.DataPart
         }
     }
 
+    @Builder
     record DataPart(
             String kind,
             Map<String, Object> data,

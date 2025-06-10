@@ -74,11 +74,12 @@ class AgentCardTest {
             """;
 
     @Test
-    void desirialize() throws JsonMappingException, JsonProcessingException {
+    void deserialize() throws JsonMappingException, JsonProcessingException {
         final var oMapper = new ObjectMapper();
         oMapper.registerModule(new Jdk8Module());
 
         var agentCard = oMapper.readValue(sampleJson, AgentCard.class);
+
 
     }
 

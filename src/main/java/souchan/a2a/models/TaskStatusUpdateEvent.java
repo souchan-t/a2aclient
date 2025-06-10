@@ -1,28 +1,31 @@
 package souchan.a2a.models;
 
+import lombok.Builder;
+
 import java.util.Map;
 import java.util.Optional;
 
 /**
  * Sent by server during sendStream or subscribe requests.
  */
+@Builder
 public record TaskStatusUpdateEvent(
-        /** Task id */
+        /* Task id */
         String taskId,
 
-        /** The context the task is associated with */
+        /* The context the task is associated with */
         String contextId,
 
-        /** Event type */
+        /* Event type */
         String kind,
 
-        /** Current status of the task */
+        /* Current status of the task */
         TaskStatus status,
 
-        /** Indicates the end of the event stream */
+        /* Indicates the end of the event stream */
         boolean isFinal,
 
-        /** Extension metadata. */
+        /* Extension metadata. */
         Optional<Map<String, Object>> metadata
 ) implements MessageStreamResponseResult {
 }
