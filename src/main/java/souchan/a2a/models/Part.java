@@ -20,6 +20,7 @@ import java.util.Optional;
 
 })
 public sealed interface Part permits Part.TextPart, Part.FilePart, Part.DataPart {
+    @Builder
     record TextPart(
             String kind,
             String text,

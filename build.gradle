@@ -1,14 +1,31 @@
 plugins {
-    id 'java'
+    id 'java-library'
+    id 'maven-publish'
 }
 
-group = 'souchan.t'
-version = '0.0.1SNAPSHOT'
+group = 'souchan'
+version = '0.0.1'
 
 repositories {
     mavenCentral()
+
 }
 
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            groupId = 'souchan'
+            artifactId = 'sta2aclient'
+            version = '0.0.1'
+            from components.java
+        }
+    }
+    repositories {
+        maven {
+            url = layout.buildDirectory.dir("repo")
+        }
+    }
+}
 dependencies {
     testImplementation platform('org.junit:junit-bom:5.10.0')
     testImplementation 'org.junit.jupiter:junit-jupiter'
