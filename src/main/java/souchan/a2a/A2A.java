@@ -30,4 +30,16 @@ public class A2A {
     public static A2AAgentClient getClient(String serverDomain, String securitySchemeName, String credential) {
         return A2A.getClient(serverDomain,securitySchemeName,credential,A2A.httpClient);
     }
+    public static A2AAgentClient getClient(String serverDomain, String credential) {
+        final var agentCard = new A2AAgentCardClientImpl(httpClient).getAgentCard(serverDomain);
+        final var securityScheme = agentCard
+                .securitySchemes()
+                .flatMap(schemes -> schemes.values().stream().findFirst())
+                .orElseThrow();
+
+        final var apiKeyCredential = new APIKeyCredential(credential);
+
+        return new A2AAgentClientImpl(agentCard, securityScheme, apiKeyCredential, httpClient);
+
+    }
 }

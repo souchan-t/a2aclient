@@ -5,8 +5,9 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
 @JsonTypeInfo(
         use = JsonTypeInfo.Id.NAME,
-        include = JsonTypeInfo.As.PROPERTY,
-        property = "kind"
+        include = JsonTypeInfo.As.EXISTING_PROPERTY,
+        property = "kind",
+        visible = true
 )
 @JsonSubTypes({
         @JsonSubTypes.Type(value = Task.class, name = "task"),

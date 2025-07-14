@@ -9,8 +9,9 @@ import java.util.Optional;
 
 @JsonTypeInfo(
         use = JsonTypeInfo.Id.NAME,
-        include = JsonTypeInfo.As.PROPERTY,
-        property = "type"
+        include = JsonTypeInfo.As.EXISTING_PROPERTY,
+        property = "type",
+        visible = true
 )
 @JsonSubTypes({
         @JsonSubTypes.Type(value = SecurityScheme.APIKeySecurityScheme.class, name = "apiKry"),

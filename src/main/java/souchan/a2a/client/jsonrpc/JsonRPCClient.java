@@ -1,8 +1,6 @@
 package souchan.a2a.client.jsonrpc;
 
 import souchan.a2a.client.A2AEventListener;
-import souchan.a2a.client.Credential;
-import souchan.a2a.models.SecurityScheme;
 
 import java.util.concurrent.CompletableFuture;
 
